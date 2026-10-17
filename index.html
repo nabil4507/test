@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Little Birthday Surprise 💜</title>
+  <style>
+    :root {
+      --lavender: #eee5ff;
+      --lavender-deep: #d9c5ff;
+      --purple: #8055bd;
+      --purple-dark: #59348d;
+      --ink: #4c3b61;
+      --white: #fffaff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 22px;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, #fffaff 0, transparent 40%),
+        linear-gradient(135deg, #f8f1ff, #e9dcff 55%, #f4eaff);
+    }
+
+    .falling-layer {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .falling-emoji {
+      position: absolute;
+      top: -50px;
+      display: block;
+      opacity: 0.82;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      will-change: transform;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      filter: drop-shadow(0 2px 2px #8c69ad20);
+    }
+
+    @keyframes fall {
+      from { transform: translate3d(0, -10vh, 0) rotate(0deg); }
+      to   { transform: translate3d(35px, 115vh, 0) rotate(360deg); }
+    }
+
+    .gift-card {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 540px);
+      min-height: 540px;
+      padding: 34px 28px 24px;
+      border: 1px solid #ffffffc9;
+      border-radius: 30px;
+      background: #fffaffed;
+      box-shadow: 0 22px 70px #73529a24, inset 0 0 0 7px #f5edff;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .ribbon { font-size: 2rem; margin-bottom: 8px; }
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--purple);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 15px;
+      color: var(--purple-dark);
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      line-height: 1.12;
+    }
+
+    .message {
+      max-width: 390px;
+      margin: 0 auto 20px;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .cake {
+      font-size: 4rem;
+      margin: 4px 0 12px;
+      animation: bob 2.6s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    .page {
+      display: none;
+      width: 100%;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: appear 0.35s ease;
+    }
+
+    .page.active { display: flex; }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 25px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 16px #7951a52a;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #9b73d5;
+      outline-offset: 3px;
+    }
+
+    .primary {
+      color: white;
+      background: linear-gradient(135deg, #a77be4, #8055bd);
+    }
+
+    .secondary {
+      color: var(--purple-dark);
+      background: #eee2ff;
+      border: 1px solid #d9c3ff;
+    }
+
+    .nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .nav button { min-width: 112px; }
+
+    .progress {
+      display: flex;
+      gap: 7px;
+      margin: 0 0 20px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ddc9f8;
+      transition: width 0.2s ease, background 0.2s ease;
+    }
+
+    .dot.active {
+      background: var(--purple);
+      width: 22px;
+      border-radius: 99px;
+    }
+
+    .tiny-note {
+      min-height: 24px;
+      margin: 13px 0 0;
+      font-size: 0.9rem;
+      color: #8866a7;
+    }
+
+    .wish-box {
+      background: #f5edff;
+      border: 1px dashed #c8a8f2;
+      border-radius: 20px;
+      padding: 17px 18px;
+      max-width: 390px;
+      line-height: 1.75;
+    }
+
+    .signature {
+      margin-top: 18px;
+      color: var(--purple);
+      font-weight: 800;
+    }
+
+    @media (max-width: 420px) {
+      body { padding: 12px; }
+      .gift-card { min-height: 560px; padding: 28px 19px 20px; }
+      .message { font-size: 1rem; }
+      .nav button { min-width: 100px; padding: 12px 17px; }
+    }
+
+    @media (max-height: 700px) {
+      body { overflow-y: auto; }
+      .gift-card { min-height: 540px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      /* Keep the requested birthday emojis falling even when reduced-motion
+         is enabled on the device. Other decorative movement stays reduced. */
+      .falling-emoji {
+        animation-duration: 12s !important;
+        animation-iteration-count: infinite !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="falling-layer" id="fallingLayer" aria-hidden="true"></div>
+
+  <!-- Put your music file named birthday-song.mp3 in the same folder as this HTML file. -->
+  <audio id="birthdayMusic" src="Happy Birthday to You 🎂 Cute & Beautiful Birthday Song.mp3" preload="auto" loop></audio>
+
+  <main class="gift-card" aria-live="polite">
+    <div class="progress" aria-label="Page progress">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <section class="page active" data-page="0">
+      <div class="ribbon">🎀💜🎀</div>
+      <p class="eyebrow">A tiny birthday surprise</p>
+      <h1>Hey Birthday Girl! ✨</h1>
+      <div class="cake">🎂</div>
+      <p class="message">I made something for you… but first, you gotta answer this question hehe.</p>
+      <h2 style="font-size: 1.35rem; color: var(--purple-dark); margin: 0 0 15px;">Do you wanna see the birthday surprise? 💌</h2>
+      <div class="buttons">
+        <button class="primary" id="yesButton" type="button">YES! 💜</button>
+        <button class="secondary" id="noButton" type="button">No 🙈</button>
+      </div>
+      <p class="tiny-note" id="answerNote" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="page" data-page="1">
+      <div class="ribbon">🎁</div>
+      <p class="eyebrow">A little wish</p>
+      <h1>Happy Birthday Princess! 🥳</h1>
+      <div class="cake">🎂🌷</div>
+      <p class="message">Today is all about you and the lovely person you are.</p>
+      <div class="wish-box">
+        May your day be filled with happy moments, lots of laughter, and plenty of smiles. You are a blessing to everyone around you. We all love you so much and wish nothing but the best for you. 💜
+      </div>
+
+      <div class="nav">
+        <button class="secondary" data-back type="button">← Back</button>
+        <button class="primary" data-next type="button">Next →</button>
+      </div>
+    </section>
+
+    <section class="page" data-page="2">
+      <div class="ribbon">💌✨</div>
+      <p class="eyebrow">One last thing</p>
+      <h1>Make a wish!</h1>
+      <div class="cake">🎉💐🎉</div>
+      <p class="message">I wish you peace, strength, courage, happiness, a long life, and lots of money (＞ᴗ＜). Please don't ever give up in this life. Wherever we may be, always be proud of yourself, dear.</p>
+      <div class="wish-box">
+        <strong>Birthday reminder:</strong><br />
+        You matter, you are appreciated, and you deserve kindness in every way possible—not just today, but every day. Keep shining in your own way. Ermm… SLAYYY!! ✨
+      </div>
+      <p class="signature">Sending you lots of love and kisses 💜</p>
+      <div class="nav">
+        <button class="secondary" data-back type="button">← Back</button>
+        <button class="primary" id="restartButton" type="button">Read again ↻</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const pages = Array.from(document.querySelectorAll('.page'));
+    const dots = Array.from(document.querySelectorAll('.dot'));
+    const answerNote = document.getElementById('answerNote');
+    const birthdayMusic = document.getElementById('birthdayMusic');
+    let currentPage = 0;
+
+    async function startBirthdayMusic() {
+      try {
+        // play() is called immediately during the YES click interaction,
+        // so browsers are more likely to allow playback without another button.
+        const playPromise = birthdayMusic.play();
+        if (playPromise !== undefined) await playPromise;
+      } catch (error) {
+        // Most commonly, the MP3 file is missing or its path/name is incorrect.
+        console.warn(
+          'Birthday music could not start. Make sure birthday-song.mp3 is in the same folder as this HTML file.',
+          error
+        );
+      }
+    }
+
+    function stopBirthdayMusic() {
+      birthdayMusic.pause();
+      birthdayMusic.currentTime = 0;
+    }
+
+    function showPage(index) {
+      const previousPage = currentPage;
+      currentPage = Math.max(0, Math.min(index, pages.length - 1));
+
+      pages.forEach((page, i) => {
+        page.classList.toggle('active', i === currentPage);
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentPage);
+      });
+
+      answerNote.textContent = '';
+
+      // Start automatically on Page 2, and stop when leaving Page 2.
+      if (currentPage === 1 && previousPage !== 1) {
+        startBirthdayMusic();
+      } else if (currentPage !== 1 && previousPage === 1) {
+        stopBirthdayMusic();
+      }
+    }
+
+    document.getElementById('yesButton').addEventListener('click', () => {
+      showPage(1);
+    });
+
+    document.getElementById('noButton').addEventListener('click', () => {
+      answerNote.textContent = 'STOP THE CAP DEAR! 🥹 There is a little surprise waiting!';
+    });
+
+    document.querySelectorAll('[data-next]').forEach(button => {
+      button.addEventListener('click', () => showPage(currentPage + 1));
+    });
+
+    document.querySelectorAll('[data-back]').forEach(button => {
+      button.addEventListener('click', () => showPage(currentPage - 1));
+    });
+
+    document.getElementById('restartButton').addEventListener('click', () => {
+      showPage(0);
+    });
+
+    // Create small birthday emojis that fall continuously in the background.
+    const layer = document.getElementById('fallingLayer');
+    const emojis = ['🎂', '🎈', '✨', '💜', '🎉', '⭐', '🎁'];
+    const emojiCount = 28;
+
+    for (let i = 0; i < emojiCount; i++) {
+      const item = document.createElement('span');
+      item.className = 'falling-emoji';
+      item.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      item.style.left = Math.random() * 100 + 'vw';
+      item.style.animationDuration = (8 + Math.random() * 12) + 's';
+      item.style.animationDelay = (-Math.random() * 20) + 's';
+      item.style.fontSize = (12 + Math.random() * 12) + 'px';
+
+      layer.appendChild(item);
+    }
+  </script>
+</body>
+</html>
