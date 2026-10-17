@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A Little Birthday Surprise 💜</title>
-
   <style>
     :root {
       --lavender: #eee5ff;
@@ -16,33 +14,18 @@
       --white: #fffaff;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
-
-    /* CENTER THE CARD IN THE VISIBLE BROWSER VIEWPORT */
     body {
       margin: 0;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      min-height: 0;
-
+      min-height: 100vh;
+      min-height: 100svh;
       display: grid;
       place-items: center;
-
       overflow: hidden;
       padding: 22px;
-
       font-family: "Trebuchet MS", Arial, sans-serif;
       color: var(--ink);
-
       background:
         radial-gradient(circle at top left, #fffaff 0, transparent 40%),
         linear-gradient(135deg, #f8f1ff, #e9dcff 55%, #f4eaff);
@@ -72,48 +55,33 @@
     }
 
     @keyframes fall {
-      from {
-        transform: translate3d(0, -10vh, 0) rotate(0deg);
-      }
-
-      to {
-        transform: translate3d(35px, 115vh, 0) rotate(360deg);
-      }
+      from { transform: translate3d(0, -10vh, 0) rotate(0deg); }
+      to   { transform: translate3d(35px, 115vh, 0) rotate(360deg); }
     }
 
-    /* THE BIRTHDAY CARD */
     .gift-card {
-      position: relative;
+      /* Pin the card to the exact center of the browser viewport. */
+      position: fixed;
+      top: 50%;
+      left: 50%;
       z-index: 1;
-
       width: min(100%, 540px);
       min-height: 540px;
-
       padding: 34px 28px 24px;
-
       border: 1px solid #ffffffc9;
       border-radius: 30px;
-
       background: #fffaffed;
-      box-shadow: 0 22px 70px #73529a24,
-                  inset 0 0 0 7px #f5edff;
-
+      box-shadow: 0 22px 70px #73529a24, inset 0 0 0 7px #f5edff;
       text-align: center;
       backdrop-filter: blur(8px);
-
       display: flex;
       flex-direction: column;
       align-items: center;
-
-      /* Do not add translateY here.
-         The body now centers the card automatically. */
+      margin: 0;
+      transform: translate(-50%, -50%);
     }
 
-    .ribbon {
-      font-size: 2rem;
-      margin-bottom: 8px;
-    }
-
+    .ribbon { font-size: 2rem; margin-bottom: 8px; }
     .eyebrow {
       margin: 0 0 10px;
       color: var(--purple);
@@ -144,13 +112,8 @@
     }
 
     @keyframes bob {
-      0%, 100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-7px);
-      }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
     }
 
     .page {
@@ -163,20 +126,11 @@
       animation: appear 0.35s ease;
     }
 
-    .page.active {
-      display: flex;
-    }
+    .page.active { display: flex; }
 
     @keyframes appear {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .buttons {
@@ -194,11 +148,7 @@
       font: inherit;
       font-weight: 800;
       cursor: pointer;
-
-      transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        background 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
 
     button:hover {
@@ -231,9 +181,7 @@
       padding-top: 20px;
     }
 
-    .nav button {
-      min-width: 112px;
-    }
+    .nav button { min-width: 112px; }
 
     .progress {
       display: flex;
@@ -277,54 +225,46 @@
       font-weight: 800;
     }
 
-    /* MOBILE SCREENS */
     @media (max-width: 420px) {
-      body {
-        padding: 12px;
-      }
-
-      .gift-card {
-        min-height: 560px;
-        padding: 28px 19px 20px;
-      }
-
-      .message {
-        font-size: 1rem;
-      }
-
-      .nav button {
-        min-width: 100px;
-        padding: 12px 17px;
-      }
+      body { padding: 12px; }
+      .gift-card { min-height: 560px; padding: 28px 19px 20px; }
+      .message { font-size: 1rem; }
+      .nav button { min-width: 100px; padding: 12px 17px; }
     }
 
-    /* SHORT SCREENS: ALLOW SCROLLING INSTEAD OF CUTTING OFF THE CARD */
     @media (max-height: 700px) {
       body {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
         height: auto;
         min-height: 100vh;
-        min-height: 100dvh;
+        min-height: 100svh;
         overflow-x: hidden;
         overflow-y: auto;
       }
 
       .gift-card {
-        margin-block: auto;
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 22px auto;
         min-height: 540px;
+        flex-shrink: 0;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         scroll-behavior: auto !important;
         transition-duration: 0.01ms !important;
       }
 
-      /* Keep the birthday emojis falling continuously. */
+      /* Keep the requested birthday emojis falling even when reduced-motion
+         is enabled on the device. Other decorative movement stays reduced. */
       .falling-emoji {
         animation-duration: 12s !important;
         animation-iteration-count: infinite !important;
@@ -332,200 +272,112 @@
     }
   </style>
 </head>
-
 <body>
-  <div
-    class="falling-layer"
-    id="fallingLayer"
-    aria-hidden="true">
-  </div>
+  <div class="falling-layer" id="fallingLayer" aria-hidden="true"></div>
 
-  <!-- Keep your MP3 file in the same folder as index.html. -->
-  <audio
-    id="birthdayMusic"
-    src="Happy Birthday to You 🎂 Cute & Beautiful Birthday Song.mp3"
-    preload="auto"
-    loop>
-  </audio>
+  <!-- Put your music file named birthday-song.mp3 in the same folder as this HTML file. -->
+  <audio id="birthdayMusic" src="Happy Birthday to You 🎂 Cute & Beautiful Birthday Song.mp3" preload="auto" loop></audio>
 
   <main class="gift-card" aria-live="polite">
-
-    <!-- PAGE PROGRESS -->
     <div class="progress" aria-label="Page progress">
       <span class="dot active"></span>
       <span class="dot"></span>
       <span class="dot"></span>
     </div>
 
-    <!-- PAGE 1: THE QUESTION -->
     <section class="page active" data-page="0">
       <div class="ribbon">🎀💜🎀</div>
-
       <p class="eyebrow">A tiny birthday surprise</p>
-
       <h1>Hey Birthday Girl! ✨</h1>
-
       <div class="cake">🎂</div>
-
-      <p class="message">
-        I made something for you… but first, you gotta
-        answer this question hehe.
-      </p>
-
-      <h2 style="font-size: 1.35rem; color: var(--purple-dark); margin: 0 0 15px;">
-        Do you wanna see the birthday surprise? 💌
-      </h2>
-
+      <p class="message">I made something for you… but first, you gotta answer this question hehe.</p>
+      <h2 style="font-size: 1.35rem; color: var(--purple-dark); margin: 0 0 15px;">Do you wanna see the birthday surprise? 💌</h2>
       <div class="buttons">
-        <button class="primary" id="yesButton" type="button">
-          YES! 💜
-        </button>
-
-        <button class="secondary" id="noButton" type="button">
-          No 🙈
-        </button>
+        <button class="primary" id="yesButton" type="button">YES! 💜</button>
+        <button class="secondary" id="noButton" type="button">No 🙈</button>
       </div>
-
-      <p
-        class="tiny-note"
-        id="answerNote"
-        role="status"
-        aria-live="polite">
-      </p>
+      <p class="tiny-note" id="answerNote" role="status" aria-live="polite"></p>
     </section>
 
-    <!-- PAGE 2: BIRTHDAY WISH -->
     <section class="page" data-page="1">
       <div class="ribbon">🎁</div>
-
       <p class="eyebrow">A little wish</p>
-
       <h1>Happy Birthday Princess! 🥳</h1>
-
       <div class="cake">🎂🌷</div>
-
-      <p class="message">
-        Today is all about you and the lovely person you are.
-      </p>
-
+      <p class="message">Today is all about you and the lovely person you are.</p>
       <div class="wish-box">
-        May your day be filled with happy moments, lots of
-        laughter, and plenty of smiles. You are a blessing
-        to everyone around you. We all love you so much and
-        wish nothing but the best for you. 💜
+        May your day be filled with happy moments, lots of laughter, and plenty of smiles. You are a blessing to everyone around you. We all love you so much and wish nothing but the best for you. 💜
       </div>
 
       <div class="nav">
-        <button class="secondary" data-back type="button">
-          ← Back
-        </button>
-
-        <button class="primary" data-next type="button">
-          Next →
-        </button>
+        <button class="secondary" data-back type="button">← Back</button>
+        <button class="primary" data-next type="button">Next →</button>
       </div>
     </section>
 
-    <!-- PAGE 3: THE FINAL MESSAGE -->
     <section class="page" data-page="2">
       <div class="ribbon">💌✨</div>
-
       <p class="eyebrow">One last thing</p>
-
       <h1>Make a wish!</h1>
-
       <div class="cake">🎉💐🎉</div>
-
-      <p class="message">
-        I wish you peace, strength, courage, happiness, a
-        long life, and lots of money (＞ᴗ＜). Please don't
-        ever give up in this life. Wherever we may be,
-        always be proud of yourself, dear.
-      </p>
-
+      <p class="message">I wish you peace, strength, courage, happiness, a long life, and lots of money (＞ᴗ＜). Please don't ever give up in this life. Wherever we may be, always be proud of yourself, dear.</p>
       <div class="wish-box">
         <strong>Birthday reminder:</strong><br />
-        You matter, you are appreciated, and you deserve
-        kindness in every way possible—not just today, but
-        every day. Keep shining in your own way.
-        Ermm… SLAYYY!! ✨
+        You matter, you are appreciated, and you deserve kindness in every way possible—not just today, but every day. Keep shining in your own way. Ermm… SLAYYY!! ✨
       </div>
-
-      <p class="signature">
-        Sending you lots of love and kisses 💜
-      </p>
-
+      <p class="signature">Sending you lots of love and kisses 💜</p>
       <div class="nav">
-        <button class="secondary" data-back type="button">
-          ← Back
-        </button>
-
-        <button class="primary" id="restartButton" type="button">
-          Read again ↻
-        </button>
+        <button class="secondary" data-back type="button">← Back</button>
+        <button class="primary" id="restartButton" type="button">Read again ↻</button>
       </div>
     </section>
   </main>
 
   <script>
-    const pages = Array.from(document.querySelectorAll(".page"));
-    const dots = Array.from(document.querySelectorAll(".dot"));
-    const answerNote = document.getElementById("answerNote");
-    const birthdayMusic = document.getElementById("birthdayMusic");
-
+    const pages = Array.from(document.querySelectorAll('.page'));
+    const dots = Array.from(document.querySelectorAll('.dot'));
+    const answerNote = document.getElementById('answerNote');
+    const birthdayMusic = document.getElementById('birthdayMusic');
     let currentPage = 0;
 
-    /* START MUSIC WHEN THE YES BUTTON IS CLICKED */
     async function startBirthdayMusic() {
       try {
+        // play() is called immediately during the YES click interaction,
+        // so browsers are more likely to allow playback without another button.
         const playPromise = birthdayMusic.play();
-
-        if (playPromise !== undefined) {
-          await playPromise;
-        }
+        if (playPromise !== undefined) await playPromise;
       } catch (error) {
+        // Most commonly, the MP3 file is missing or its path/name is incorrect.
         console.warn(
-          "Birthday music could not start. Check that the MP3 file exists, its filename matches the audio src, and the browser can access it.",
+          'Birthday music could not start. Make sure birthday-song.mp3 is in the same folder as this HTML file.',
           error
         );
       }
     }
 
-    /* STOP MUSIC WHEN RETURNING TO THE FIRST PAGE */
     function stopBirthdayMusic() {
       birthdayMusic.pause();
       birthdayMusic.currentTime = 0;
     }
 
-    /* CHANGE PAGES */
     function showPage(index) {
       const previousPage = currentPage;
-
-      currentPage = Math.max(
-        0,
-        Math.min(index, pages.length - 1)
-      );
+      currentPage = Math.max(0, Math.min(index, pages.length - 1));
 
       pages.forEach((page, i) => {
-        page.classList.toggle("active", i === currentPage);
+        page.classList.toggle('active', i === currentPage);
       });
 
       dots.forEach((dot, i) => {
-        dot.classList.toggle("active", i === currentPage);
+        dot.classList.toggle('active', i === currentPage);
       });
 
-      answerNote.textContent = "";
+      answerNote.textContent = '';
 
-      /*
-        Page index 0 = first page
-        Page index 1 = birthday wish
-        Page index 2 = final message
-
-        Start music when YES opens the birthday wish.
-        Keep playing when moving between pages 2 and 3.
-        Stop and reset only when returning to the first page.
-      */
-
+      // Start automatically when YES opens Page 2.
+      // Keep the music playing across Pages 2 and 3, including when
+      // moving back and forth between them. Stop only when returning
+      // to Page 1 (for example, with Read again).
       if (previousPage === 0 && currentPage >= 1) {
         startBirthdayMusic();
       } else if (currentPage === 0 && previousPage >= 1) {
@@ -533,69 +385,39 @@
       }
     }
 
-    /* YES BUTTON */
-    document.getElementById("yesButton").addEventListener("click", () => {
+    document.getElementById('yesButton').addEventListener('click', () => {
       showPage(1);
     });
 
-    /* NO BUTTON */
-    document.getElementById("noButton").addEventListener("click", () => {
-      answerNote.textContent =
-        "STOP THE CAP DEAR! 🥹 There is a little surprise waiting!";
+    document.getElementById('noButton').addEventListener('click', () => {
+      answerNote.textContent = 'STOP THE CAP DEAR! 🥹 There is a little surprise waiting!';
     });
 
-    /* NEXT BUTTON */
-    document.querySelectorAll("[data-next]").forEach(button => {
-      button.addEventListener("click", () => {
-        showPage(currentPage + 1);
-      });
+    document.querySelectorAll('[data-next]').forEach(button => {
+      button.addEventListener('click', () => showPage(currentPage + 1));
     });
 
-    /* BACK BUTTON */
-    document.querySelectorAll("[data-back]").forEach(button => {
-      button.addEventListener("click", () => {
-        showPage(currentPage - 1);
-      });
+    document.querySelectorAll('[data-back]').forEach(button => {
+      button.addEventListener('click', () => showPage(currentPage - 1));
     });
 
-    /* RESTART BUTTON */
-    document.getElementById("restartButton").addEventListener("click", () => {
+    document.getElementById('restartButton').addEventListener('click', () => {
       showPage(0);
     });
 
-    /* CONTINUOUSLY FALLING BIRTHDAY EMOJIS */
-    const layer = document.getElementById("fallingLayer");
-
-    const emojis = [
-      "🎂",
-      "🎈",
-      "✨",
-      "💜",
-      "🎉",
-      "⭐",
-      "🎁"
-    ];
-
+    // Create small birthday emojis that fall continuously in the background.
+    const layer = document.getElementById('fallingLayer');
+    const emojis = ['🎂', '🎈', '✨', '💜', '🎉', '⭐', '🎁'];
     const emojiCount = 28;
 
     for (let i = 0; i < emojiCount; i++) {
-      const item = document.createElement("span");
-
-      item.className = "falling-emoji";
-
-      item.textContent =
-        emojis[Math.floor(Math.random() * emojis.length)];
-
-      item.style.left = Math.random() * 100 + "vw";
-
-      item.style.animationDuration =
-        (8 + Math.random() * 12) + "s";
-
-      item.style.animationDelay =
-        (-Math.random() * 20) + "s";
-
-      item.style.fontSize =
-        (12 + Math.random() * 12) + "px";
+      const item = document.createElement('span');
+      item.className = 'falling-emoji';
+      item.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      item.style.left = Math.random() * 100 + 'vw';
+      item.style.animationDuration = (8 + Math.random() * 12) + 's';
+      item.style.animationDelay = (-Math.random() * 20) + 's';
+      item.style.fontSize = (12 + Math.random() * 12) + 'px';
 
       layer.appendChild(item);
     }
